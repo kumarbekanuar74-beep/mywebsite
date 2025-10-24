@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Түсіну деңгейін бағалау</title>
+<style>
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: linear-gradient(160deg, #dbeafe 0%, #e0f2fe 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: 0;
+}
+
+h1 {
+  color: #0f172a;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #334155;
+  margin-bottom: 25px;
+  text-align: center;
+}
+
+.container {
+  display: flex;
+  gap: 25px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.button {
+  width: 220px;
+  height: 240px;
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+/* сурет орны */
+.button .photo {
+  width: 100%;
+  height: 150px;
+  border-radius: 12px;
+  background-color: #f1f5f9;
+  border: 2px dashed #cbd5e1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  font-size: 14px;
+  text-align: center;
+  padding: 10px;
+}
+
+/* жазу */
+.button span {
+  font-size: 20px;
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.button:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.button:active {
+  transform: scale(0.97);
+}
+
+/* әр батырмаға түс беру */
+#tusindim { background: linear-gradient(180deg, #dcfce7 0%, #f0fdf4 100%); }
+#tusinbedim { background: linear-gradient(180deg, #fee2e2 0%, #fef2f2 100%); }
+#ortasha { background: linear-gradient(180deg, #fef9c3 0%, #fefce8 100%); }
+
+/* хабарлама (toast) */
+#toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #0f172a;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+}
+
+#toast.show {
+  opacity: 1;
+}
+</style>
+</head>
+<body>
+
+<h1>Сабақты қаншалықты түсіндің?</h1>
+<p>Өзіңе сәйкес нұсқаны таңда:</p>
+
+<div class="container">
+  <button id="tusindim" class="button" onclick="showToast('Түсіндім ✅')">
+    <div class="photo">Мұнда өз суретіңді қоясың</div>
+    <span>Түсіндім</span>
+  </button>
+
+  <button id="tusinbedim" class="button" onclick="showToast('Түсінбедім ❌')">
+    <div class="photo">Мұнда өз суретіңді қоясың</div>
+    <span>Түсінбедім</span>
+  </button>
+
+  <button id="ortasha" class="button" onclick="showToast('Орташа ➖')">
+    <div class="photo">Мұнда өз суретіңді қоясың</div>
+    <span>Орташа</span>
+  </button>
+</div>
+
+<div id="toast"></div>
+
+<script>
+function showToast(text) {
+  const toast = document.getElementById("toast");
+  toast.innerText = text;
+  toast.classList.add("show");
+  setTimeout(() => toast.classList.remove("show"), 2000);
+}
+</script>
+
+</body>
+</html>
