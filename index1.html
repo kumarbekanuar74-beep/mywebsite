@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Кері байланыс</title>
+  
+  <!-- Подключаем библиотеку QRCode.js через CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+
+  <style>
+    body {
+      font-family: sans-serif;
+      background: linear-gradient(135deg, #e0f7fa, #f1f8e9);
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    h1 {
+      margin-top: 20px;
+      color: #333;
+    }
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 25px;
+      padding: 20px;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 400px;
+      border-radius: 20px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px rgba(0,0,0,0.3);
+    }
+
+    .card img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.3s ease;
+    }
+
+    .card:active img {
+      transform: scale(1.1) rotate(-3deg);
+    }
+
+    .card h3 {
+      margin: 10px 0;
+      padding: 10px;
+      color: white;
+      border-radius: 0 0 15px 15px;
+    }
+
+    #understood h3 {
+      background-color: #ffeb3b;
+      color: #000;
+    }
+
+    #question h3 {
+      background-color: #4caf50;
+    }
+
+    #not-understood h3 {
+      background-color: #f44336;
+    }
+
+    /* Новый стиль для яркого свечения */
+    .card.glowing-green {
+      box-shadow: 0 0 30px 10px rgba(76, 175, 80, 1); /* Яркое зеленое свечение */
+    }
+
+    .card.glowing-yellow {
+      box-shadow: 0 0 30px 10px rgba(255, 235, 59, 1); /* Яркое желтое свечение */
+    }
+
+    .card.glowing-red {
+      box-shadow: 0 0 30px 10px rgba(244, 67, 54, 1); /* Яркое красное свечение */
+    }
+
+    @media (min-width: 768px) {
+      .container {
+        flex-direction: row;
+        justify-content: center;
+      }
+      .card {
+        width: 30%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<h1>Кері байланыс</h1>
+
+<div class="container">
+  <div class="card" id="understood" onclick="vote('understood')">
+    <img src="../Downloads/3.jpg" alt="Түсіндім">
+    <h3>Түсіндім</h3>
+  </div>
+
+  <div class="card" id="question" onclick="vote('question')">
+    <img src="../Downloads/2.jpg" alt="Сұрағым бар">
+    <h3>Сұрағым бар</h3>
+  </div>
+
+  <div class="card" id="not-understood" onclick="vote('not-understood')">
+    <img src="../Downloads/1.jpg" alt="Түсінген жоқпын">
+    <h3>Түсінген жоқпын</h3>
+  </div>
+</div>
+
+<!-- Контейнер для QR-кода -->
+<div id="qrcode"></div>
+
+<script>
+  function vote(type) {
+    const card = document.getElementById(type);
+    
+    // Убираем все предыдущие эффекты свечения
+    card.classList.remove('glowing-green', 'glowing-yellow', 'glowing-red');
+    
+    // Включаем эффект свечения в зависимости от выбора
+    if (type === 'understood') {
+      card.classList.add('glowing-yellow');
+    } else if (type === 'question') {
+      card.classList.add('glowing-green');
+    } else if (type === 'not-understood') {
+      card.classList.add('glowing-red');
+    }
+
+    // Вернуть карточку в исходное состояние через 1 секунду
+    setTimeout(() => {
+      card.classList.remove('glowing-green', 'glowing-yellow', 'glowing-red');
+    }, 1000);
+  }
+
+  // Генерация QR-кода для локального файла
+  const localFilePath = "file:///C:/Users/f/Desktop/myfile.html"; // Путь к вашему локальному файлу
+  QRCode.toCanvas(document.getElementById('qrcode'), localFilePath, function (error) {
+    if (error) {
+      console.error(error);
+    } else {
+      console.log("QR код успешно сгенерирован!");
+    }
+  });
+</script>
+
+</body>
+</html>
